@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dotnet5api.Models;
+using Dotnet5api.Helpers;  // Ensure this is included to reference SharedFunctions
 
 [Route("api/[controller]")]
 [ApiController]
@@ -26,16 +27,20 @@ public class SatuanController : ControllerBase
     {
         
         // return await _context.Satuans.ToListAsync();     // asli 
-
-        var satuans = await _context.Satuans.ToListAsync();
+        
+         // Query raw SQL
+        var sSql = "SELECT * FROM m_satuan";
+        var sqlQuery = SharedFunctions.GetSatuan(sSql);
+        var satuans = await _context.Satuans.FromSqlRaw(sqlQuery).ToListAsync();
+        // var result = await Task.Run(() => new SharedSqlConnection().GetDataTable(sqlQuery, "m_satuan"));
 
         // Menampilkan data ke terminal
-        // Console.WriteLine("Data dari tabel m_satuan:");
-         _logger.LogInformation("Data dari tabel m_satuan:");
+        Console.WriteLine("Data dari tabel m_satuan:");
+        //  _logger.LogInformation("Data dari tabel m_satuan:");
         foreach (var satuan in satuans)
         {
-            // Console.WriteLine($"ID: {satuan.id_unit}, Kode: {satuan.kode_unit}, Nama: {satuan.nama_unit}, Note: {satuan.note_unit}, Active: {satuan.active}");
-            _logger.LogInformation($"ID: {satuan.id_unit}, Kode: {satuan.kode_unit}, Nama: {satuan.nama_unit}, Note: {satuan.note_unit}, Active: {satuan.active}");
+            Console.WriteLine($"ID: {satuan.id_unit}, Kode: {satuan.kode_unit}, Nama: {satuan.nama_unit}, Note: {satuan.note_unit}, Active: {satuan.active}");
+            // _logger.LogInformation($"ID: {satuan.id_unit}, Kode: {satuan.kode_unit}, Nama: {satuan.nama_unit}, Note: {satuan.note_unit}, Active: {satuan.active}");
         }
 
         return satuans;
@@ -46,7 +51,7 @@ public class SatuanController : ControllerBase
     [HttpGet("{id_unit}")]
     public async Task<ActionResult<Satuan>> GetSatuanById(int id_unit)
     {
-        var satuan = await _context.Satuans.FindAsync(id_unit);
+        var satuan = await _context.Satuans.FindAsy nc(id_unit);
 
         if (satuan == null)
         {

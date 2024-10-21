@@ -9,6 +9,19 @@ namespace Dotnet5api.Models  //Satuan.Data
 
        public DbSet<Satuan> Satuans { get; set; }
 
+       // Jika Anda ingin mendefinisikan primary key secara eksplisit
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Satuan>()            
+                .HasKey(s => s.id_unit);  // Definisikan id_unit sebagai primary key
+
+            modelBuilder.Entity<Satuan>()
+                .ToTable("m_satuan");    // Ganti dengan nama tabel yang sesuai
+            
+            base.OnModelCreating(modelBuilder);
+            
+        }
+
     }
 
     //  public DbSet<m_satuan> m_satuans { get; set; }

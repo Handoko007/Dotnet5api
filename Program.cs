@@ -24,38 +24,5 @@ namespace Dotnet5api
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
-
-    //     static async Task Main(string[] args)
-    // {
-    //      // Ganti dengan connection string yang sesuai dengan database SQL Server Anda
-    //     string connectionString = "Server=localhost;Database=IGB;User Id=sa;Password=aku;";
-
-    //     using (SqlConnection connection = new SqlConnection(connectionString))
-    //     {
-    //         try
-    //         {
-    //             // Membuka koneksi
-    //             await connection.OpenAsync();
-    //             Console.WriteLine("Koneksi ke SQL Server berhasil!");
-
-    //             // Lakukan operasi database, misalnya query
-    //             string query = "SELECT COUNT(*) FROM m_satuan";
-    //             using (SqlCommand command = new SqlCommand(query, connection))
-    //             {
-    //                 int rowCount = (int)await command.ExecuteScalarAsync();
-    //                 Console.WriteLine($"Jumlah baris dalam tabel: {rowCount}");
-    //             }
-    //         }
-    //         catch (Exception ex)
-    //         {
-    //             Console.WriteLine("Terjadi kesalahan: " + ex.Message);
-    //         }
-    //     }
-    //     }
-
-
-     }
-
-                
+     }               
 }

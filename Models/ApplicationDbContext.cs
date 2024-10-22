@@ -1,17 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using Dotnet5api.Models;
 
-namespace Dotnet5api.Models  //Satuan.Data
+namespace Dotnet5api.Models  //Data
 {
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
+        // Deklarasi data
        public DbSet<Satuan> Satuans { get; set; }
+       public DbSet<kategori> kategoris { get; set; }
 
        // Jika Anda ingin mendefinisikan primary key secara eksplisit
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Satuan
             modelBuilder.Entity<Satuan>()            
                 .HasKey(s => s.id_unit);  // Definisikan id_unit sebagai primary key
 
@@ -19,9 +22,15 @@ namespace Dotnet5api.Models  //Satuan.Data
                 .ToTable("m_satuan");    // Ganti dengan nama tabel yang sesuai
             
             base.OnModelCreating(modelBuilder);
-            
-        }
 
+
+            // Kategori
+            modelBuilder.Entity<kategori>()
+                .HasKey(c => c.id_kategori);  // Menentukan id_category sebagai primary key
+            modelBuilder.Entity<kategori>()
+                .ToTable("m_kategori"); 
+            
+        }      
     }
 
     //  public DbSet<m_satuan> m_satuans { get; set; }

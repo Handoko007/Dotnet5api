@@ -51,7 +51,7 @@ public class SatuanController : ControllerBase
     [HttpGet("{id_unit}")]
     public async Task<ActionResult<Satuan>> GetSatuanById(int id_unit)
     {
-        var satuan = await _context.Satuans.FindAsy nc(id_unit);
+        var satuan = await _context.Satuans.FindAsync(id_unit);
 
         if (satuan == null)
         {

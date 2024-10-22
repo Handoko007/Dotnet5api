@@ -17,5 +17,17 @@ namespace Dotnet5api.Helpers  // This should be your project's namespace
         {
             return sqlQuery;  // Just return the query string as it is
         }
+
+          // Fungsi untuk mendapatkan data kategori dari query SQL
+        // public static async Task<List<Category>> GetCategories(ApplicationDbContext context, string sqlQuery)
+        // {
+        //     return await context.Categories.FromSqlRaw(sqlQuery).ToListAsync();
+        // }
+
+        
+        //  public static string GetCategories(string sqlQuery1)
+        // {
+        //     return sqlQuery1;  // Just return the query string as it is
+        // }
     }
 }

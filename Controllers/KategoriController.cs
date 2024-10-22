@@ -10,7 +10,7 @@ using Dotnet5api.Helpers;  // Pastikan SharedFunctions diimport
 
 namespace Dotnet5api.Controllers
 {
-    [Route("api/master/[controller]")]
+    [Route("api/Master/[controller]")]
     [ApiController]
     public class KategoriController : ControllerBase
     {
@@ -68,6 +68,27 @@ namespace Dotnet5api.Controllers
         [HttpPost]
         public async Task<ActionResult<kategori>> Postkategori(kategori kategori)
         {
+            // Cek apakah kode_kategori sudah ada di database
+            var existingKodekategori = await _context.kategoris
+                                            .FirstOrDefaultAsync(k => k.kode_kategori == kategori.kode_kategori);
+        
+            if (existingKodekategori != null)
+            {
+                // Jika kode_kategori sudah ada, return BadRequest dengan pesan error
+                return BadRequest(new { message = $"Kode Kategori '{kategori.kode_kategori}' sudah ada." });
+            }
+
+            // Cek apakah nama_kategori sudah ada di database
+            var existingNamakategori = await _context.kategoris
+                                                .FirstOrDefaultAsync(s => s.nama_kategori == kategori.nama_kategori);
+            
+            if (existingNamakategori != null)
+            {
+                // Jika nama_kategori sudah ada, return BadRequest dengan pesan error
+                return BadRequest(new { message = $"Nama Kategori '{kategori.nama_kategori}' sudah ada." });
+            }
+
+            // Jika kode_kategori belum ada, lanjutkan untuk menambah data baru
             _context.kategoris.Add(kategori);
             await _context.SaveChangesAsync();
             _logger.LogInformation($"Data baru disimpan dengan ID: {kategori.id_kategori}");

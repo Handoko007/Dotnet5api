@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Dotnet5api.Models;
 using Dotnet5api.Helpers;  // Ensure this is included to reference SharedFunctions
 
-[Route("api/master/[controller]")]
+[Route("api/Master/[controller]")]
 [ApiController]
 public class SatuanController : ControllerBase
 {
@@ -20,6 +20,7 @@ public class SatuanController : ControllerBase
         _context = context;
         _logger = logger;
     }
+
 
     // GET: api/master/satuan
     [HttpGet()]
@@ -47,6 +48,7 @@ public class SatuanController : ControllerBase
                
     }
 
+
     // GET: api/master/satuan/5
     [HttpGet("{id_unit}")]
     public async Task<ActionResult<Satuan>> GetSatuanById(int id_unit)
@@ -64,10 +66,32 @@ public class SatuanController : ControllerBase
         return satuan;
     }
 
+
     // POST: api/master/satuan
     [HttpPost]
     public async Task<ActionResult<Satuan>> PostSatuan(Satuan satuan)
     {
+         // Cek apakah kode_unit sudah ada di database
+        var existingKodeUnit = await _context.Satuans
+                                         .FirstOrDefaultAsync(s => s.kode_unit == satuan.kode_unit);
+    
+        if (existingKodeUnit != null)
+        {
+            // Jika kode_unit sudah ada, return BadRequest dengan pesan error
+            return BadRequest(new { message = $"Kode unit '{satuan.kode_unit}' sudah ada." });
+        }
+
+        // Cek apakah nama_unit sudah ada di database
+        var existingNamaUnit = await _context.Satuans
+                                            .FirstOrDefaultAsync(s => s.nama_unit == satuan.nama_unit);
+        
+        if (existingNamaUnit != null)
+        {
+            // Jika nama_unit sudah ada, return BadRequest dengan pesan error
+            return BadRequest(new { message = $"Nama unit '{satuan.nama_unit}' sudah ada." });
+        }
+
+        // Jika kode_unit belum ada, lanjutkan untuk menambah data baru
         _context.Satuans.Add(satuan);
         await _context.SaveChangesAsync();
 
@@ -76,6 +100,7 @@ public class SatuanController : ControllerBase
 
         return CreatedAtAction(nameof(GetSatuanById), new { id_unit = satuan.id_unit }, satuan);
     }
+
 
     // PUT: api/master/satuan/5
     [HttpPut("{id_unit}")]
@@ -86,11 +111,33 @@ public class SatuanController : ControllerBase
             return BadRequest();
         }
 
+        //  // Cek apakah kode_unit sudah ada di database
+        // var existingKodeUnit = await _context.Satuans
+        //                                  .FirstOrDefaultAsync(s => s.kode_unit == satuan.kode_unit);
+    
+        // if (existingKodeUnit != null)
+        // {
+        //     // Jika kode_unit sudah ada, return BadRequest dengan pesan error
+        //     return BadRequest(new { message = $"Kode unit '{satuan.kode_unit}' sudah ada." });
+        // }
+
+        // // Cek apakah nama_unit sudah ada di database
+        // var existingNamaUnit = await _context.Satuans
+        //                                     .FirstOrDefaultAsync(s => s.nama_unit == satuan.nama_unit);
+        
+        // if (existingNamaUnit != null)
+        // {
+        //     // Jika nama_unit sudah ada, return BadRequest dengan pesan error
+        //     return BadRequest(new { message = $"Nama unit '{satuan.nama_unit}' sudah ada." });
+        // }
+
+
         _context.Entry(satuan).State = EntityState.Modified;
         await _context.SaveChangesAsync();
 
         return NoContent();
     }
+
 
     // DELETE: api/master/satuan/5
     [HttpDelete("{id_unit}")]

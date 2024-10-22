@@ -3,9 +3,9 @@ using Dotnet5api.Models;
 
 namespace Dotnet5api.Models  //Data
 {
-    public class ApplicationDbContext : DbContext
+    public class SatuanDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public SatuanDbContext(DbContextOptions<SatuanDbContext> options) : base(options) { }
 
         // Deklarasi data
        public DbSet<Satuan> Satuans { get; set; }
@@ -24,11 +24,11 @@ namespace Dotnet5api.Models  //Data
             base.OnModelCreating(modelBuilder);
 
 
-            // Kategori
-            modelBuilder.Entity<kategori>()
-                .HasKey(c => c.id_kategori);  // Menentukan id_category sebagai primary key
-            modelBuilder.Entity<kategori>()
-                .ToTable("m_kategori"); 
+            // // Kategori
+            // modelBuilder.Entity<kategori>()
+            //     .HasKey(c => c.id_kategori);  // Menentukan id_category sebagai primary key
+            // modelBuilder.Entity<kategori>()
+            //     .ToTable("m_kategori"); 
             
         }      
     }

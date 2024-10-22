@@ -1,106 +1,106 @@
-// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// using System.Threading.Tasks;
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.EntityFrameworkCore;
-// using Microsoft.Extensions.Logging;
-// using Dotnet5api.Models;
-// using Dotnet5api.Helpers;  // Pastikan SharedFunctions diimport
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Dotnet5api.Models;
+using Dotnet5api.Helpers;  // Pastikan SharedFunctions diimport
 
-// namespace Dotnet5api.Controllers
-// {
-//     [Route("api/[controller]")]
-//     [ApiController]
-//     public class CategoryController : ControllerBase
-//     {
-//         private readonly ApplicationDbContext _context;
-//         private readonly ILogger<CategoryController> _logger;
+namespace Dotnet5api.Controllers
+{
+    [Route("api/master/[controller]")]
+    [ApiController]
+    public class KategoriController : ControllerBase
+    {
+        private readonly KategoriDbContext _context;
+        private readonly ILogger<KategoriController> _logger;
 
-//         public CategoryController(ApplicationDbContext context, ILogger<CategoryController> logger)
-//         {
-//             _context = context;
-//             _logger = logger;
-//         }
+        public KategoriController(KategoriDbContext context, ILogger<KategoriController> logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
 
-//         // GET: api/category
-//         [HttpGet]
-//         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
-//         {
-//             // var categories = await _context.Categories.ToListAsync();
+        // GET: api/master/kategori
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<kategori>>> Getkategori()
+        {
+            // var categories = await _context.Categories.ToListAsync();
 
-//             var sSql1 = "SELECT * FROM m_category";
-//             var sqlQuery1 = SharedFunctions.GetCategories(sSql1);
-//             var categories = await _context.categories.FromSqlRaw(sqlQuery1).ToListAsync();
+            var sSql = "SELECT * FROM m_kategori";
+            var sqlQuery = SharedFunctions.Getkategori(sSql);
+            var kategoris = await _context.kategoris.FromSqlRaw(sqlQuery).ToListAsync();
 
-//             // Query raw SQL untuk mengambil data dari tabel m_category
-//             // var sqlQuery = "SELECT * FROM m_category";
+            // Query raw SQL untuk mengambil data dari tabel m_category
+            // var sqlQuery = "SELECT * FROM m_category";
         
-//             // Menggunakan SharedFunctions untuk menjalankan query SQL dan mendapatkan data Category
-//             // var categories = await SharedFunctions.GetCategories(_context, sqlQuery);
+            // Menggunakan SharedFunctions untuk menjalankan query SQL dan mendapatkan data Category
+            // var categories = await SharedFunctions.Getkategori(_context, sqlQuery);
 
-//             Console.WriteLine("Data dari tabel m_category:");
+            Console.WriteLine("Data dari tabel m_kategori:");
 
-//             foreach (var Category in Categories)
-//         {
-//             Console.WriteLine($"ID: {Category.id_category}, Kode: {Category.category_code}, Nama: {Category.category_name}, Note: {Category.category_type}, Active: {Category.active}");
-//         }
-//             return Ok(categories);
-//         }
+            foreach (var kategori in kategoris)
+        {
+            Console.WriteLine($"ID: {kategori.id_kategori}, Kode: {kategori.kode_kategori}, Nama: {kategori.nama_kategori}, Note: {kategori.type_kategori}, Active: {kategori.active}");
+        }
+            return Ok(kategoris);
+        }
 
-//         // GET: api/category/5
-//         [HttpGet("{id_category}")]
-//         public async Task<ActionResult<Category>> GetCategoryById(int id_category)
-//         {
-//             var Category = await _context.Categories.FindAsync(id_category);
-//             if (Category == null)
-//             {
-//                 return NotFound();
-//             }
+        // GET: api/master/kategori/5
+        [HttpGet("{id_kategori}")]
+        public async Task<ActionResult<kategori>> GetkategoriById(int id_kategori)
+        {
+            var kategori = await _context.kategoris.FindAsync(id_kategori);
+            if (kategori == null)
+            {
+                return NotFound();
+            }
             
-//             // Log informasi data yang ditemukan berdasarkan id
-//             _logger.LogInformation($"Data ditemukan dengan ID: {id_category}");
+            // Log informasi data yang ditemukan berdasarkan id
+            _logger.LogInformation($"Data ditemukan dengan ID: {id_kategori}");
             
-//             return Ok(Category);
-//         }
+            return Ok(kategori);
+        }
 
-//         // POST: api/category
-//         [HttpPost]
-//         public async Task<ActionResult<Category>> PostCategory(Category category)
-//         {
-//             _context.Categories.Add(Category);
-//             await _context.SaveChangesAsync();
-//             _logger.LogInformation($"Data baru disimpan dengan ID: {Category.id_category}");
-//             return CreatedAtAction(nameof(GetCategoryById), new { id_category = Category.id_category }, Category);
-//         }
+        // POST: api/master/kategori
+        [HttpPost]
+        public async Task<ActionResult<kategori>> Postkategori(kategori kategori)
+        {
+            _context.kategoris.Add(kategori);
+            await _context.SaveChangesAsync();
+            _logger.LogInformation($"Data baru disimpan dengan ID: {kategori.id_kategori}");
+            return CreatedAtAction(nameof(GetkategoriById), new { id_kategori = kategori.id_kategori }, kategori);
+        }
 
-//         // PUT: api/category/5
-//         [HttpPut("{id_category}")]
-//         public async Task<IActionResult> PutCategory(int id_category, Category category)
-//         {
-//             if (id_category != Category.id_category)
-//             {
-//                 return BadRequest();
-//             }
+        // PUT: api/master/kategori/5
+        [HttpPut("{id_kategori}")]
+        public async Task<IActionResult> Putkategori(int id_kategori, kategori kategori)
+        {
+            if (id_kategori != kategori.id_kategori)
+            {
+                return BadRequest();
+            }
 
-//             _context.Entry(Category).State = EntityState.Modified;
-//             await _context.SaveChangesAsync();
-//             return NoContent();
-//         }
+            _context.Entry(kategori).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
 
-//         // DELETE: api/category/5
-//         [HttpDelete("{id_category}")]
-//         public async Task<IActionResult> DeleteCategory(int id_category)
-//         {
-//             var Category = await _context.Categories.FindAsync(id_category);
-//             if (Category == null)
-//             {
-//                 return NotFound();
-//             }
+        // DELETE: api/master/kategori/5
+        [HttpDelete("{id_kategori}")]
+        public async Task<IActionResult> DeleteCategory(int id_kategori)
+        {
+            var kategori = await _context.kategoris.FindAsync(id_kategori);
+            if (kategori == null)
+            {
+                return NotFound();
+            }
 
-//             _context.Categories.Remove(Category);
-//             await _context.SaveChangesAsync();
-//             return NoContent();
-//         }
-//     }
-// }
+            _context.kategoris.Remove(kategori);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+    }
+}

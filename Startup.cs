@@ -36,7 +36,10 @@ namespace Dotnet5api
             });
 
             // Add DB Context
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<SatuanDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<KategoriDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //  Other service configurations/...

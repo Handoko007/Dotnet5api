@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 using Dotnet5api.Models;
 using Dotnet5api.Helpers;  // Ensure this is included to reference SharedFunctions
 
-[Route("api/[controller]")]
+[Route("api/master/[controller]")]
 [ApiController]
 public class SatuanController : ControllerBase
 {
-    private readonly ApplicationDbContext _context;
+    private readonly SatuanDbContext _context;
     private readonly ILogger<SatuanController> _logger;  // Deklarasikan _logger
 
-    public SatuanController(ApplicationDbContext context, ILogger<SatuanController> logger)
+    public SatuanController(SatuanDbContext context, ILogger<SatuanController> logger)
     {
         _context = context;
         _logger = logger;
     }
 
-    // GET: api/satuan
+    // GET: api/master/satuan
     [HttpGet()]
     public async Task<ActionResult<IEnumerable<Satuan>>> GetSatuans()     // asli    
     {
@@ -47,7 +47,7 @@ public class SatuanController : ControllerBase
                
     }
 
-    // GET: api/satuan/5
+    // GET: api/master/satuan/5
     [HttpGet("{id_unit}")]
     public async Task<ActionResult<Satuan>> GetSatuanById(int id_unit)
     {
@@ -64,7 +64,7 @@ public class SatuanController : ControllerBase
         return satuan;
     }
 
-    // POST: api/satuan
+    // POST: api/master/satuan
     [HttpPost]
     public async Task<ActionResult<Satuan>> PostSatuan(Satuan satuan)
     {
@@ -77,7 +77,7 @@ public class SatuanController : ControllerBase
         return CreatedAtAction(nameof(GetSatuanById), new { id_unit = satuan.id_unit }, satuan);
     }
 
-    // PUT: api/satuan/5
+    // PUT: api/master/satuan/5
     [HttpPut("{id_unit}")]
     public async Task<IActionResult> PutSatuan(int id_unit, Satuan satuan)
     {
@@ -92,7 +92,7 @@ public class SatuanController : ControllerBase
         return NoContent();
     }
 
-    // DELETE: api/satuan/5
+    // DELETE: api/master/satuan/5
     [HttpDelete("{id_unit}")]
     public async Task<IActionResult> DeleteSatuan(int id_unit)
     {

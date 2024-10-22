@@ -25,9 +25,9 @@ namespace Dotnet5api.Helpers  // This should be your project's namespace
         // }
 
         
-        //  public static string GetCategories(string sqlQuery1)
-        // {
-        //     return sqlQuery1;  // Just return the query string as it is
-        // }
+         public static string Getkategori(string sqlQuery1)
+        {
+            return sqlQuery1;  // Just return the query string as it is
+        }
     }
 }

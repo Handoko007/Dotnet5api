@@ -45,6 +45,9 @@ namespace Dotnet5api
             services.AddDbContext<BarangDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDbContext<GeneralDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             //  Other service configurations/...
             // services.AddControllersWithViews();
             // services.AddControllers();

@@ -29,5 +29,11 @@ namespace Dotnet5api.Helpers  // This should be your project's namespace
         {
             return sqlQuerybrg;  // Just return the query string as it is
         }
+
+        // General    
+         public static string GetGeneral(string sqlQuerygen)
+        {
+            return sqlQuerygen;  // Just return the query string as it is
+        }
     }
 }

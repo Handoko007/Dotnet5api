@@ -9,7 +9,6 @@ namespace Dotnet5api.Models  //Data
 
         // Deklarasi data
        public DbSet<Satuan> Satuans { get; set; }
-       public DbSet<kategori> kategoris { get; set; }
 
        // Jika Anda ingin mendefinisikan primary key secara eksplisit
         protected override void OnModelCreating(ModelBuilder modelBuilder)

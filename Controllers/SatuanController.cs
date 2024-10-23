@@ -51,7 +51,7 @@ public class SatuanController : ControllerBase
 
     // GET: api/master/satuan/5
     [HttpGet("{id_unit}")]
-    public async Task<ActionResult<Satuan>> GetSatuanById(int id_unit)
+    public async Task<ActionResult<Satuan>> GetSatuanById(long id_unit)
     {
         var satuan = await _context.Satuans.FindAsync(id_unit);
 
@@ -104,7 +104,7 @@ public class SatuanController : ControllerBase
 
     // PUT: api/master/satuan/5
     [HttpPut("{id_unit}")]
-    public async Task<IActionResult> PutSatuan(int id_unit, Satuan satuan)
+    public async Task<IActionResult> PutSatuan(long id_unit, Satuan satuan)
     {
         if (id_unit != satuan.id_unit)
         {
@@ -141,7 +141,7 @@ public class SatuanController : ControllerBase
 
     // DELETE: api/master/satuan/5
     [HttpDelete("{id_unit}")]
-    public async Task<IActionResult> DeleteSatuan(int id_unit)
+    public async Task<IActionResult> DeleteSatuan(long id_unit)
     {
         var satuan = await _context.Satuans.FindAsync(id_unit);
         if (satuan == null)

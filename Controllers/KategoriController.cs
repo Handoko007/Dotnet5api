@@ -50,7 +50,7 @@ namespace Dotnet5api.Controllers
 
         // GET: api/master/kategori/5
         [HttpGet("{id_kategori}")]
-        public async Task<ActionResult<kategori>> GetkategoriById(int id_kategori)
+        public async Task<ActionResult<kategori>> GetkategoriById(long id_kategori)
         {
             var kategori = await _context.kategoris.FindAsync(id_kategori);
             if (kategori == null)
@@ -97,7 +97,7 @@ namespace Dotnet5api.Controllers
 
         // PUT: api/master/kategori/5
         [HttpPut("{id_kategori}")]
-        public async Task<IActionResult> Putkategori(int id_kategori, kategori kategori)
+        public async Task<IActionResult> Putkategori(long id_kategori, kategori kategori)
         {
             if (id_kategori != kategori.id_kategori)
             {
@@ -111,7 +111,7 @@ namespace Dotnet5api.Controllers
 
         // DELETE: api/master/kategori/5
         [HttpDelete("{id_kategori}")]
-        public async Task<IActionResult> DeleteCategory(int id_kategori)
+        public async Task<IActionResult> DeleteCategory(long id_kategori)
         {
             var kategori = await _context.kategoris.FindAsync(id_kategori);
             if (kategori == null)

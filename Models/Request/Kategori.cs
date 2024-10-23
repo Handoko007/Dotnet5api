@@ -7,7 +7,7 @@ namespace Dotnet5api.Models
     public class kategori
     {
         [Key]
-        public int id_kategori { get; set; }
+        public long id_kategori { get; set; }
 
         [Required]
         [MaxLength(10)]

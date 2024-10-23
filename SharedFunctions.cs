@@ -19,9 +19,15 @@ namespace Dotnet5api.Helpers  // This should be your project's namespace
         }
 
         // Kategori    
-         public static string Getkategori(string sqlQuery1)
+         public static string Getkategori(string sqlQuery)
         {
-            return sqlQuery1;  // Just return the query string as it is
+            return sqlQuery;  // Just return the query string as it is
+        }
+
+        // Barang    
+         public static string GetBarang(string sqlQuerybrg)
+        {
+            return sqlQuerybrg;  // Just return the query string as it is
         }
     }
 }
